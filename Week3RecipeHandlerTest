@@ -1,0 +1,21 @@
+@isTest
+private class RecipeHandlerTest {
+    static testMethod void validateRecipeHandler(){
+        Recipe__c rec1 = new Recipe__c(Name='Test Recipe1',Active_Time_Units__c = 'Minutes',Active_Time__c=15);
+        
+        //insert Recipe
+        insert rec1;
+        
+        //Pull the recipe and check the duration
+        rec1 = [SELECT Duration__c FROM Recipe__c WHERE Id =:rec1.Id];
+        system.debug('The duration of this quick recipe is'+ rec1.Duration__c);
+        
+        Recipe__c rec2 = new Recipe__c(Name='Test Recipe2',Active_Time_Units__c = 'Hours',Active_Time__c = 24);
+        
+        //insert second recipe
+        insert rec2;
+        
+        rec2 = [SELECT Duration__c FROM Recipe__c WHERE Id =:rec1.Id];
+        system.debug('The duration of this long recipe is'+ rec1.Duration__c);
+    }
+}
