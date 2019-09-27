@@ -1,0 +1,22 @@
+public class RecipeHandler {
+    //declare a list to hold trigger.new
+	List<Recipe__c> recipeList = new List<Recipe__c>();
+    //send in the list into the handler
+    public static void recipeHandler(List<Recipe__c> recipeList){
+        for(Recipe__c rec : recipeList){
+            	//Under 30 we are only concerned with minutes 
+                if(rec.Active_Time__c<=30 && rec.Active_Time_Units__c =='Minutes'){
+                    rec.Duration__c = 'Quick';
+                }
+            	//30-60 min is Medium as well as 1 hour
+            	if(rec.Active_Time_Units__c =='Minutes'&& rec.Active_Time__c >30 && rec.Active_Time__c <=60 || rec.Active_Time_Units__c == 'Hours' && rec.Active_Time__c==1){
+                    rec.Duration__c = 'Medium';
+                //Over 60 min or over 1 hr is Long
+                } else if(rec.Active_Time_units__c =='Minutes' && rec.Active_Time__c>=60 || rec.Active_Time_Units__c =='Hours' && rec.Active_Time__c>1){
+                    rec.Duration__c = 'Long';
+                }
+            
+        }
+    }
+    
+}
